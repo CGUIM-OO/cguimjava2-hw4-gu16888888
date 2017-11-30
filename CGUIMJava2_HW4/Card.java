@@ -9,7 +9,7 @@ public class Card{
 		thisCardSuit=s;
 		rank=r;
 	}	
-	enum Suit{Clubs,Diamonds,Hearts,Spades};//½«SuitÏŞ¶¨Îª Clubs,Diamonds,Hearts,Spades
+	enum Suit{Clubs,Diamonds,Hearts,Spades};//å°†Suité™å®šä¸º Clubs,Diamonds,Hearts,Spades
 	Suit thisCardSuit;
 	//TODO: 1. Please implement the printCard method (20 points, 10 for suit, 10 for rank)
 	public void printCard(){
@@ -43,10 +43,10 @@ public class Card{
 			System.out.println("K");
 		
 	}
-	public Suit getSuit(){//»Ø´«thisCardSuit
+	public Suit getSuit(){//å›ä¼ thisCardSuit
 		return thisCardSuit;
 	}
-	public int getRank(){//»Ø´«rank
+	public int getRank(){//å›ä¼ rank
 		return rank;
 	}
 }

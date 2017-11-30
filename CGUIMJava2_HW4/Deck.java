@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 	
-		// TODO ×Ô¶¯Éú³ÉµÄ·½·¨´æ¸ù	
+		// TODO è‡ªåŠ¨ç”Ÿæˆçš„æ–¹æ³•å­˜æ ¹	
 	public	class Deck{
 		
 		
@@ -17,14 +17,14 @@ import java.util.Random;
 				//Card card=new Card(1,1); ->means new card as clubs ace
 				//cards.add(card);
 				//Sample code end
-				for (int deck=1;deck<=nDeck;deck++){//¼¸¸±ÅÆ
-					for (Card.Suit s : Card.Suit.values()){//»¨É«
-						for(int Rank=1;Rank<=13;Rank++){//´óĞ¡
+				for (int deck=1;deck<=nDeck;deck++){//å‡ å‰¯ç‰Œ
+					for (Card.Suit s : Card.Suit.values()){//èŠ±è‰²
+						for(int Rank=1;Rank<=13;Rank++){//å¤§å°
 							Card card=new Card(s,Rank);
-							cards.add(card);//½«ĞÂÊµÌå»¯µÄcard¼Óµ½Çåµ¥£¨cards£©ÀïÃæ
+							cards.add(card);//å°†æ–°å®ä½“åŒ–çš„cardåŠ åˆ°æ¸…å•ï¼ˆcardsï¼‰é‡Œé¢
 						}
 					}
-				}shuffle();//Ï´ÅÆ
+				}shuffle();//æ´—ç‰Œ
 				
 
 			}	
@@ -34,34 +34,55 @@ import java.util.Random;
 				return cards;
 			}
 				
-			    public ArrayList<Card> usedCard;
+			    public ArrayList<Card> usedCard;//ç”¨è¿‡çš„ç‰Œ
 			    
-			    public int nUsed;
+			    
+			    public int nUsed;//ç”¨è¿‡ç‰Œçš„æ•°é‡
 			    public void shuffle(){
-			    	usedCard=new ArrayList<Card>();//½«usedCardÊµÌå»¯
+			    	
+			    	openCard=new ArrayList<Card>();//å°†openCardå®ä½“åŒ–
+			    	usedCard=new ArrayList<Card>();//å°†usedCardå®ä½“åŒ–
 			    	for(int i=52;i>0;i--){
 			    	Random n = new Random(); 
-			    	int x=n.nextInt(i);
+			    	int x=n.nextInt(cards.size());
 			    	Card card=new Card(cards.get(x).getSuit(),cards.get(x).getRank());
 			    	
-			    	usedCard.add(cards.get(x));
-			    	cards.remove(cards.get(x));
-			    	
+			    	Card tempCard=cards.get(x);
+			    	cards.set(x, cards.get(i));
+			    	cards.set(i, tempCard);
+			  
+			    	/*éšæœºæŠ½å–ä¸€å¼ ç‰Œ
+			    	 * æŠŠè¿™å¼ ç‰Œæš‚å­˜åœ¨tempCardä¸­
+			    	 * å°†è¿™å¼ ç‰Œä¸ç¬¬iå¼ ç‰Œäº’è°ƒä½ç½®
+			    	 * é‡å¤52æ¬¡å®Œæˆæ´—ç‰Œ
+			    	 */
 			    	}nUsed=0;
-			    	cards.addAll(usedCard);
-			    	usedCard.removeAll(usedCard);
-			    }//Ñ­»·ÔÚiÕÅ£¨iÓÉ52µİ¼õ£©cardsÖĞËæ»ú³éÒ»ÕÅÅÆ·Åµ½usedCardÖĞÔİ´æ£¬²¢½«´ËÅÆ´ÓcardsÀïÒÆ³ı£¬Á¬Ğø52´ÎÍê³ÉÏ´ÅÆ¶¯×÷¡£×îºóÏ´ÅÆÍê³Éºó»¹Òª½«usedCardÀïÃæµÄÅÆaddµ½cardsÀïÃæ£¬Çå¿ÕusedCard
-			    
-			    
+			    	//å°†nUsedæ¸…é›¶
+			    	
+			    	
+			    	openCard.removeAll(openCard);//é‡ç½®æ‰“å¼€çš„ç‰Œ
+			    }
 			    		    
-			    public Card getOneCard(){
-			    	if(nUsed==52)//µ±52ÕÅÅÆ·¢ÍêÁË
-			    		shuffle();//Ï´ÅÆ
-			    	nUsed++;//Ã¿·¢Ò»´ÎÅÆ£¬nUsed++
-			    	Card card=new Card(cards.get(0).getSuit(),cards.get(0).getRank());	//Ã¿´Î¶¼·¢×îÉÏÃæµÄÅÆ		    	
-			    	cards.add(cards.get(0));cards.remove(cards.get(0));//½«·¢µÄ×îÉÏÃæµÄÅÆ·Åµ½×îÏÂÃæ
+			    public Card getOneCard(boolean isOpened){
+			    	
+			    	if(nUsed==52)//å½“52å¼ ç‰Œå‘å®Œäº†
+			    		shuffle();//æ´—ç‰Œ
+			    	nUsed++;//æ¯å‘ä¸€æ¬¡ç‰Œï¼ŒnUsed++
+			    	if(isOpened==true){
+			    		openCard.add(cards.get(0));//å¦‚æœè¿™å¼ ç‰Œæ˜¯æ‰“å¼€çš„ç‰Œï¼Œåˆ™æ–°å¢åˆ°openCardé‡Œé¢
+			    			
+			    	}
+			    	Card card=new Card(cards.get(0).getSuit(),cards.get(0).getRank());	//æ¯æ¬¡éƒ½å‘æœ€ä¸Šé¢çš„ç‰Œ		    	
+			    	cards.add(cards.get(0));cards.remove(cards.get(0));//å°†å‘çš„æœ€ä¸Šé¢çš„ç‰Œæ”¾åˆ°æœ€ä¸‹é¢
 			    	return card;
 			    }
+			    private ArrayList<Card> openCard;
+			   // å­˜æ”¾æ­¤å‰¯ç‰Œä¸­æ‰€æœ‰æ‰“é–‹çš„ç‰Œï¼Œæ´—ç‰Œæ™‚è¦é‡ç½®
+			    
+			    public ArrayList<Card> getOpenedCard(){
+			    //å›å‚³æ­¤å‰¯ç‰Œä¸­æ‰€æœ‰æ‰“é–‹éçš„ç‰Œï¼Œæ„å³openCard
+			    	return openCard;
+			    	}
 
 	}
 

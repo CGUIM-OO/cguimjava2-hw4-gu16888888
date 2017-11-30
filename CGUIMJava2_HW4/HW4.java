@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 //import java.util.Scanner;
+//B05544201 顾雨薇
 public class HW4 {
 	public static void main(String[] args) {
 		int nDeck=4;

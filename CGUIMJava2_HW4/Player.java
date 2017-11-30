@@ -3,54 +3,74 @@ import java.util.ArrayList;
 public class Player {
 
 	public static void main(String[] args) {
-		// TODO ×Ô¶¯Éú³ÉµÄ·½·¨´æ¸ù
+		// TODO è‡ªåŠ¨ç”Ÿæˆçš„æ–¹æ³•å­˜æ ¹
 		
 	}	
-	private String name;//Íæ¼ÒĞÕÃû
-	private int chips;//Íæ¼ÒÓĞµÄ»I´a
-	private int bet;//Íæ¼Ò´Ë¾ÖÏÂ×¢µÄ»I´a
-	private ArrayList oneRoundCard;//´ËÅÆ¾ÖµÄ¿¨
+	private String name;//ç©å®¶å§“å
+	private int chips;//ç©å®¶æœ‰çš„ç±Œç¢¼
+	private int bet;//ç©å®¶æ­¤å±€ä¸‹æ³¨çš„ç±Œç¢¼
+	private ArrayList<Card> oneRoundCard;//æ­¤ç‰Œå±€çš„å¡
+	
 	public Player(String name, int chips){
-		
-	}//Player constructor£¬ĞÂÔöPlayerÎï¼ş•r£¬ĞèÒªĞÕÃû¡¢“íÓĞµÄ»I´aµÈƒÉ‚€…¢”µ
+		this.name=name;//thisæŒ‡å®šç©å®¶name
+		this.chips=chips;//thisæŒ‡å®šç©å®¶æœ‰çš„ç­¹ç 
+	}//Player constructorï¼Œæ–°å¢Playerç‰©ä»¶æ™‚ï¼Œéœ€è¦å§“åã€æ“æœ‰çš„ç±Œç¢¼ç­‰å…©å€‹åƒæ•¸
 	
 	public String getName(){
-	//nameµÄgetter
+	//nameçš„getter
 	return name;
 		}
-	public int makeBet(){
-	/*ÏÂ×¢£¬»Ø‚÷îAÓ‹ÏÂ×¢µÄ»I´a
-	»ù±¾ÏÂ×¢£ºÒ»´Î1Ôª
-	Èç
-	bet=1;*/
-	return bet;
-	//×¢Òâ£ºÒª™z²éÊÇ·ñß€ÓĞåX£¬›]åXÁË¾Í²»ÄÜÔÙÀ^ÀmÏÂ×¢
+	public int makeBet(){//ä¸‹æ³¨
+		bet=1;//åŸºæœ¬ä¸‹æ³¨ï¼šä¸€æ¬¡1å…ƒ
+		if(chips>=1)
+			return bet;
+		else
+			return 0;
+		
+	/*æ£€æŸ¥æ˜¯å¦è¿˜æœ‰é’±
+	 * æœ‰é’± return bet
+	 * æ²¡é’±å°±ä¸èƒ½ç»§ç»­ä¸‹æ³¨ï¼Œ return 0
+	 */
+	
 	}
-	public void setOneRoundCard(ArrayList cards){
-	//ÔO¶¨´ËÅÆ¾ÖËùµÃµ½µÄ¿¨ setter
-	//oneRoundCard=cards;
+	public void setOneRoundCard(ArrayList<Card> cards){
+	//è¨­å®šæ­¤ç‰Œå±€æ‰€å¾—åˆ°çš„å¡ setter
+		
+	oneRoundCard=cards;//æ­¤ç‰Œå±€å¾—åˆ°çš„å¡ä¸ºcards
 	}
 	public boolean hitMe(){
-	/*ÊÇ·ñÒªÅÆ£¬ÊÇ»Ø‚÷true£¬²»ÔÙÒªÅÆ„t»Ø‚÷false
-	»ù±¾…¢¿¼—l¼ş£º16ücÒÔÏÂÒªÅÆ£¬17ücÒÔÉÏ²»ÒªÅÆ
-	ÌáÊ¾£ºÓÃoneRoundCardíËã*/
-		boolean result=true;
-		return result;//Ï¹Ğ´µÄ
+	/*æ˜¯å¦è¦ç‰Œï¼Œæ˜¯å›å‚³trueï¼Œä¸å†è¦ç‰Œå‰‡å›å‚³false
+	åŸºæœ¬åƒè€ƒæ¢ä»¶ï¼š16é»ä»¥ä¸‹è¦ç‰Œï¼Œ17é»ä»¥ä¸Šä¸è¦ç‰Œ
+	æç¤ºï¼šç”¨oneRoundCardä¾†ç®—*/
+		boolean hM;
+		if (getTotalValue()<=16)//å¦‚æœæ€»ç‚¹æ•°å°äºç­‰äº16ï¼Œåˆ™è¦ç‰Œï¼›å¦åˆ™åœæ­¢è¦ç‰Œ
+			hM=true;
+		else
+			hM=false;	
+		return hM;  //å›ä¼ true or false
 	}
 	public int getTotalValue(){
-	//»Ø‚÷´ËÅÆ¾ÖËùµÃµÄ¿¨üc”µ¼Ó¿‚
-		return 0;
+	//å›ä¼ æ­¤ç‰Œå±€æ‰€å¾—çš„å¡æ•°åŠ æ€»
+		int ToalValue=0;
+		int len=oneRoundCard.size();
+		for(int i=len-1;i>=0;i--){
+			if(oneRoundCard.get(i).getRank()>10)
+				ToalValue+=10;//å¦‚æœæŠ½åˆ°Jã€Qã€K åˆ™ç®—ä¸º10ç‚¹  å…¶ä½™å‡ä¸Rankç›¸åŒ
+			else ToalValue=ToalValue+oneRoundCard.get(i).getRank();
+		}
+		return ToalValue;//å›ä¼ æ­¤ç‰Œå±€æ‰€å¾—çš„å¡æ•°åŠ æ€»
 	}
 	public int getCurrentChips(){
-	//»Ø‚÷Íæ¼Ò¬FÓĞ»I´a
-		return 0;
+	//å›å‚³ç©å®¶ç¾æœ‰ç±Œç¢¼
+		return chips;
 	}
 	public void increaseChips (int diff){
-	//Íæ¼Ò»I´a×ƒ„Ó£¬setter
+	//ç©å®¶ç±Œç¢¼è®Šå‹•ï¼Œsetter
+		chips=chips+diff;
 	}
 	public void sayHello(){
-	//Íæ¼ÒSay Hello
-	
+	//ç©å®¶Say Hello
 	System.out.println("Hello, I am " + name + ".");
-	System.out.println("I have " + chips + " chips.");}
+	System.out.println("I have " + chips + " chips.");
+	}
 }
